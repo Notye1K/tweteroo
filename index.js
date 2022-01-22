@@ -1,11 +1,16 @@
-import express from 'express'
+import express, {json} from 'express'
+import cors from 'cors'
 
 const server = express()
+server.use(cors())
+server.use(json())
 
-const user = {
-    username: 'bobesponja',
-    avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
-}
+const users = [
+    {
+        username: 'bobesponja',
+        avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
+    }
+]
 
 const tweet = {
     username: "bobesponja",
@@ -33,6 +38,11 @@ server.get('/tweets', (req, res) => {
     else{
         res.send(tweets)
     }
+})
+
+server.post('/sign-up', (req, res) => {
+    users.push(req.body)
+    res.send('OK')
 })
 
 server.listen(5000, () => {
