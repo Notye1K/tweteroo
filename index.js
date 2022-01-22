@@ -12,10 +12,6 @@ const users = [
     }
 ]
 
-const tweet = {
-    username: "bobesponja",
-    tweet: "eu amo o hub",
-}
 
 const tweets = [
     {
@@ -30,7 +26,7 @@ server.get('/tweets', (req, res) => {
 
         const lastTen = []
 
-        for (let i =11; i>0; i--){
+        for (let i =10; i>0; i--){
             lastTen.push(tweets[tweets.length - i])
         }
         res.send(lastTen)
@@ -42,6 +38,13 @@ server.get('/tweets', (req, res) => {
 
 server.post('/sign-up', (req, res) => {
     users.push(req.body)
+    res.send('OK')
+})
+
+server.post('/tweets', (req, res) => {
+    const user = users.find(v => v.username === req.body.username)
+    req.body.avatar = user.avatar
+    tweets.push(req.body)
     res.send('OK')
 })
 
