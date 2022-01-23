@@ -63,6 +63,12 @@ server.post('/tweets', (req, res) => {
 
 })
 
+server.get('/tweets/:USERNAME', (req, res) => {
+    const userTweets = tweets.filter(v => v.username === req.params.USERNAME)
+    res.send(userTweets)
+    console.log(userTweets);
+})
+
 server.listen(5000, () => {
     console.log('runnig')
 })
