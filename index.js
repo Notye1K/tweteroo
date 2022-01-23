@@ -37,15 +37,30 @@ server.get('/tweets', (req, res) => {
 })
 
 server.post('/sign-up', (req, res) => {
-    users.push(req.body)
-    res.send('OK')
+    const body = req.body
+    if(body.avatar === undefined || body.username === undefined || body === undefined){
+        res.status(400).send('Todos os campos são obrigatórios!')
+    }
+    else{
+        users.push(req.body)
+        res.status(201).send('OK')
+    }
+    console.log(body);
 })
 
 server.post('/tweets', (req, res) => {
-    const user = users.find(v => v.username === req.body.username)
-    req.body.avatar = user.avatar
-    tweets.push(req.body)
-    res.send('OK')
+    const body = req.body
+    if (body.tweet === undefined || body.username === undefined || body === undefined) {
+        res.status(400).send('Todos os campos são obrigatórios!')
+    }
+    else{
+        const user = users.find(v => v.username === body.username)
+        body.avatar = user.avatar
+        tweets.push(body)
+        res.status(201).send('OK')
+    }
+    console.log(body);
+
 })
 
 server.listen(5000, () => {
